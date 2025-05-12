@@ -1,0 +1,47 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { playlists, allPlaylists, songs } from '@/lib/data';
+import PlaylistItemCard from "@/components/PlaylistItemCard.astro"
+import PlaylistSongCard from '@/components/PlaylistSongCard.astro';
+import MusicsTable from '@/components/MusicsTable.astro';
+import { CardPlayButton } from '@/components/CardPlayButton';
+
+const { id } = Astro.params
+
+const playlist = allPlaylists.find(playlist => playlist.id === id)
+const playlistSongs = songs.filter(song => song.albumId === playlist?.albumId)
+
+const playlistTotalDuration = playlistSongs.reduce((total, song) => {
+    const [minutes, seconds] = song.duration.split(':').map(Number); // Split "3:40" into [3, 40]
+    return total + minutes * 60 + seconds; 
+}, 0)
+
+const hours = Math.floor(playlistTotalDuration / 3600);
+const minutes = Math.floor((playlistTotalDuration % 3600) / 60); // Calculate remaining minutes
+const totalDuration = hours > 0 ? `${hours} hr ${minutes} min` : `${minutes} min`;
+---
+
+<Layout>
+	<div class="px-6 py-7 relative flex flex-col gap-10 h-full overflow-x-hidden" id="playlist-container">
+        <header class="flex gap-4">
+            <picture class="aspect-square w-52 h-52 flex-none shadow-2xl">
+                <img transition:name=`playlist ${id} image` class="object-cover w-full h-full flex-none rounded" src={playlist?.cover} alt={playlist?.title}>
+            </picture>
+            <div transition:name=`playlist ${id} box` class="flex flex-col justify-end gap-4">
+                <div >
+                    <h4 class="text-neutral-500 mb-1">Playlist</h4>
+                    <h1  class="text-4xl font-bold">{playlist?.title}</h1>
+                </div>
+                <div class="text-neutral-500 text-sm">
+                    <h3>{playlist?.artists.join(", ")}</h3>
+                    <p >58 likes &centerdot; {playlistSongs.length} musics, about {totalDuration}</p>
+                </div>
+            </div>
+        </header>
+        <div>
+            <CardPlayButton client:load id={id} className={"rounded-full bg-green-600 p-2 hover:bg-green-500 transition duration-100 hover:scale-105"} iconColor={"text-neutral-950"} />
+        </div>
+        <MusicsTable songs={playlistSongs} />
+        
+	</div>
+</Layout>

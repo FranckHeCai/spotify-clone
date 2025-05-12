@@ -1,0 +1,32 @@
+---
+import type { GetStaticPaths } from "astro";
+import Play from '@/icons/Play.astro'
+import { type Playlist } from '@/lib/data'
+import { CardPlayButton } from "./CardPlayButton";
+import PlaylistCardPlayIcon from "./ui/PlaylistCardPlayIcon";
+interface Props {
+    playlist: Playlist
+}
+
+const { playlist }= Astro.props
+const { id, cover, artists, title, color} = playlist
+---
+<article class="group relative transition-all duration-200 p-3 truncate w-44 hover:bg-white/20 rounded-md group overflow-hidden">
+    <div class="absolute transition-all right-5 bottom-18 translate-y-4 duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 z-10">
+        <CardPlayButton client:visible id={id} className={" rounded-full bg-green-600 p-2 hover:bg-green-500 transition duration-100 hover:scale-105"} iconColor={"text-neutral-950"} />
+    </div>
+    <a  href=`/playlist/${id}`>
+        <div class="relative">
+            <picture class="aspect-square w-full h-auto flex-none">
+                <img transition:name=`playlist ${id} image` class="object-cover w-full h-full flex-none rounded" src={cover} alt={title}>
+            </picture>
+            <!-- <span class="w-12 h-12 rounded-full bg-green-600 absolute right-0 bottom-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                <Play />
+            </span> -->
+        </div>
+        <div transition:name=`playlist ${id} box`>
+            <h3 class="mt-3 text-sm">{title}</h3>
+            <h4 class="text-sm text-neutral-500">{artists}</h4>
+        </div>
+    </a>
+</article>

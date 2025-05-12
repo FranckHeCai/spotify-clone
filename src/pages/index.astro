@@ -1,0 +1,23 @@
+---
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+import { playlists } from '@/lib/data';
+import PlaylistItemCard from "@/components/PlaylistItemCard.astro"
+import Greeting from "@/components/Greeting.svelte"
+import BackgroundWrapper from "@/components/BackgroundWrapper"
+---
+
+<Layout>
+	<div class="relative transition-all duration-500 bg-green-600" id="playlist-container">
+		<div class="relative z-10 px-6 pt-10">
+			<Greeting />
+			<div class="flex flex-wrap mt-6 gap-4">
+				{
+					playlists.map(playlist => <PlaylistItemCard playlist={playlist} />)
+				}
+			</div>
+		</div>
+		<div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/70">
+		</div>
+	</div>
+</Layout>
