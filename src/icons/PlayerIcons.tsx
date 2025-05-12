@@ -1,4 +1,4 @@
-export const Pause = ({className}) => (
+export const Pause = ({ className }: { className?: string }) => (
   <svg className={className} role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24"
        fill="currentColor">
     <g transform="translate(4, 4)">
@@ -10,7 +10,7 @@ export const Pause = ({className}) => (
   </svg>
 )
 
-export const Play = ({className}) => (
+export const Play = ({ className }: { className?: string }) => (
   <svg className={className} role="img" height="16" width="16" aria-hidden="true" viewBox="0 0 24 24"
        fill="currentColor">
     <path d="M8 5.14v14l11-7-11-7z"></path>
