@@ -1,6 +1,6 @@
 const PlayerCurrentSong = ({image, title, artists}) => {
     return (
-        <div className="flex items-center gap-4 overflow-hidden w-[200px]">
+        <div className="flex items-center gap-4 overflow-hidden  max-w-[200px]">
             <picture className="w-14 h-14 rounded bg-neutral-800 overflow-hidden">
                 <img  src={image} alt={title} />
             </picture>

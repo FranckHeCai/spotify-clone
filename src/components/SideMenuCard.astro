@@ -1,25 +1,38 @@
 ---
-import Play from "@/icons/Play.astro"
-import { type Playlist } from "@/lib/data"
-import { CardPlayButton } from "./CardPlayButton"
-import SideMenuCardText from "./SideMenuCardText"
+import Play from "@/icons/Play.astro";
+import { type Playlist } from "@/lib/data";
+import { CardPlayButton } from "./CardPlayButton";
+import SideMenuCardText from "./SideMenuCardText";
 interface Props {
-    playlist : Playlist
+  playlist: Playlist;
 }
-const { playlist } = Astro.props
-const { id, albumId, title, color, cover, artists } = playlist
+const { playlist } = Astro.props;
+const { id, albumId, title, color, cover, artists } = playlist;
 ---
+
 <li class="group relative">
-    <a class="flex gap-3.5 p-2 hover:bg-neutral-800 rounded-md group" href=`/playlist/${id}`>
-        <div class="relative">
-            <picture>
-                <img class="w-[50px] rounded group-hover:opacity-70" src={cover} alt={title}>
-            </picture>
-        </div>
-        <div class="flex flex-auto flex-col truncate">
-            <SideMenuCardText client:visible id={id} title={title} />
-            <p class="text-neutral-400 text-sm">{artists}</p>
-        </div>
-    </a>
-    <CardPlayButton client:visible id={id} className={"absolute flex items-center justify-center w-12 h-12 inset-0 top-2 left-2.5 opacity-0 group-hover:opacity-100"} iconColor={"text-neutral-50"} />
+  <a
+    class="flex items-center gap-3.5 p-2 hover:bg-neutral-800 rounded-md group"
+    href=`/playlist/${id}`
+  >
+    <div class="relative">
+      <picture>
+        <img
+          class="w-[50px] rounded group-hover:opacity-70"
+          src={cover}
+          alt={title}
+        />
+      </picture>
+    </div>
+    <div class="flex flex-auto flex-col truncate">
+      <SideMenuCardText client:visible id={id} title={title} />
+      <p class="text-neutral-400 text-sm">{artists}</p>
+    </div>
+  </a>
+  <CardPlayButton
+    client:visible
+    id={id}
+    className={"absolute flex items-center justify-center w-12 h-12 inset-0 top-0 lg:top-2 lg:left-2.5 opacity-0 group-hover:opacity-100"}
+    iconColor={"text-neutral-50"}
+  />
 </li>

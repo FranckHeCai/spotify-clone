@@ -95,7 +95,7 @@ export const SongControl = ({audio}) =>{
     const duration = audio?.current?.duration ?? 0
 
     return(
-        <div className="flex items-center gap-1.5 text-sm">
+        <div className="w-full flex items-center justify-center gap-1.5 text-sm">
             <span className="opacity-50 w-10 text-center">{formatTime(currentTime)}</span>
 
             <Slider
@@ -104,7 +104,7 @@ export const SongControl = ({audio}) =>{
                 value={[currentTime]}
                 max={audio?.current?.duration ?? 0}
                 min={0}
-                className="w-[500px]"
+                className="w-full max-w-[500px]"
                 onValueChange={(value)=>{
                     audio.current.currentTime = value
                 }}
@@ -149,11 +149,11 @@ export default function Player () {
     }
 
     return(
-        <div className="flex  justify-between w-full  px-2 z-50">
+        <div className="flex justify-between w-full  px-2 z-50 gap-5">
             <div>
                 <PlayerCurrentSong {...currentMusic.song} />
             </div>
-            <div className="grid place-content-center gap-4 flex-1">
+            <div className="grid gap-4 flex-1">
                 <div className="flex flex-col items-center justify-center gap-2">
                     <button onClick={handleClick} className="bg-neutral-50 rounded-full">
                     {
@@ -165,7 +165,7 @@ export default function Player () {
                     <SongControl audio={audioRef} />
                 </div>
             </div>
-            <div >
+            <div className="hidden sm:block">
                 <VolumeController />
             </div>
             <audio ref={audioRef}></audio>

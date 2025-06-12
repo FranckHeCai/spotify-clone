@@ -1,62 +1,65 @@
 ---
-import { type Song } from "@/lib/data"; 
-import MusicTableCardText from "@/components/MusicTableCardText"
+import { type Song } from "@/lib/data";
+import MusicTableCardText from "@/components/MusicTableCardText";
 import { PlaylistSongButton } from "./PlaylistSongButton";
 
 export interface Props {
-    songs: Song[]
+  songs: Song[];
 }
 
-const { songs } = Astro.props
-
+const { songs } = Astro.props;
 ---
 
 <table class="table-auto text-left min-w-full divide-y-2 divide-neutral-500/50">
-    <thead class="">
-        <tr class="text-neutral-400 ">
-            <th class="px-4 py-2 font-light">#</th>
-            <th class="px-4 py-2 font-light">Title</th>
-            <th class="px-4 py-2 font-light">Album</th>
-            <th class="px-4 py-2 font-light">Length</th>
-        </tr>
-    </thead>
-    <tbody class="pt-4">
-        <tr>
-            <td class="h-3"></td>
-        </tr>
-        {
-            songs?.map((song, index) =>(
-            <tr class="text-neutral-300 hover:bg-neutral-700 rounded group">
-                    <td class="px-4 py-2 rounded-tl-md rounded-bl-md w-7">
-                        <div class="relative">
-                            <span class="group-hover:hidden">
-                                <MusicTableCardText client:visible song={song}>
-                                {index + 1}
-                                </MusicTableCardText>
-                            </span>
-                            {/* <button class="hidden h-full group-hover:flex group-hover:items-center absolute left-[-8px] cursor-pointer">
+  <thead class="">
+    <tr class="text-neutral-400">
+      <th class="px-4 py-2 font-light">#</th>
+      <th class="px-4 py-2 font-light">Title</th>
+      <th class="px-4 py-2 font-light">Album</th>
+      <th class="px-4 py-2 font-light">Length</th>
+    </tr>
+  </thead>
+  <tbody class="pt-4">
+    <tr>
+      <td class="h-3"></td>
+    </tr>
+    {
+      songs?.map((song, index) => (
+        <tr class="text-neutral-300 hover:bg-neutral-700 rounded group">
+          <td class="px-4 py-2 rounded-tl-md rounded-bl-md w-7">
+            <div class="relative">
+              <span class="group-hover:hidden">
+                <MusicTableCardText client:visible song={song}>
+                  {index + 1}
+                </MusicTableCardText>
+              </span>
+              {/* <button class="hidden h-full group-hover:flex group-hover:items-center absolute left-[-8px] cursor-pointer">
                                 <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor">
                                     <path fill="currentColor" d="M8 5.14v14l11-7-11-7z"></path>
                                 </svg>
                             </button> */}
-                            <PlaylistSongButton client:load id={String(song.albumId)} songPlayed={song} />
-                        </div>
-                    </td>
-                    <td class="px-4 py-2 flex gap-3">
-                        <picture>
-                            <img class="w-10 h-10" src={song.image} alt={song.title} />
-                        </picture>
-                        <div class="flex flex-col justify-center gap-0.5">
-                            <MusicTableCardText client:load song={song}>
-                                {song.title}
-                            </MusicTableCardText>
-                            <p class="text-neutral-600 text-sm">{song.artists.join(", ")}</p>
-                        </div>
-                    </td>
-                    <td class="px-4 py-2">{song.album}</td>
-                    <td class="px-4 py-2 rounded-tr-md rounded-br-md">{song.duration}</td>
-                </tr>
-            ))
-        }
-    </tbody>
+              <PlaylistSongButton
+                client:load
+                id={String(song.albumId)}
+                songPlayed={song}
+              />
+            </div>
+          </td>
+          <td class="px-4 py-2 flex gap-3">
+            <picture>
+              <img class="w-10 h-10" src={song.image} alt={song.title} />
+            </picture>
+            <div class="flex flex-col justify-center gap-0.5">
+              <MusicTableCardText client:load song={song}>
+                {song.title}
+              </MusicTableCardText>
+              <p class="text-neutral-600 text-sm">{song.artists.join(", ")}</p>
+            </div>
+          </td>
+          <td class="px-4 py-2">{song.album}</td>
+          <td class="px-4 py-2 rounded-tr-md rounded-br-md">{song.duration}</td>
+        </tr>
+      ))
+    }
+  </tbody>
 </table>
